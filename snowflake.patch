@@ -1,5 +1,5 @@
 diff --git a/client/snowflake.go b/client/snowflake.go
-index 4ebbaf5..749955b 100644
+index 648481f..2a50e54 100644
 --- a/client/snowflake.go
 +++ b/client/snowflake.go
 @@ -1,9 +1,7 @@
@@ -36,8 +36,8 @@ index 4ebbaf5..749955b 100644
 -	sqsCredsStr := flag.String("sqscreds", "", "credentials to access SQS Queue")
 -	logFilename := flag.String("log", "", "name of log file")
 -	logToStateDir := flag.Bool("log-to-state-dir", false, "resolve the log file relative to tor's pt state dir")
--	keepLocalAddresses := flag.Bool("keep-local-addresses", false, "keep local LAN address ICE candidates")
--	unsafeLogging := flag.Bool("unsafe-logging", false, "prevent logs from being scrubbed")
+-	keepLocalAddresses := flag.Bool("keep-local-addresses", false, "keep local LAN address ICE candidates.\nThis is usually pointless because Snowflake proxies don't usually reside on the same local network as the client.")
+-	unsafeLogging := flag.Bool("unsafe-logging", false, "keep IP addresses and other sensitive info in the logs")
 -	max := flag.Int("max", DefaultSnowflakeCapacity,
 -		"capacity for number of multiplexed WebRTC peers")
 -	versionFlag := flag.Bool("version", false, "display version info to stderr and quit")
@@ -74,7 +74,7 @@ index 4ebbaf5..749955b 100644
  	config := sf.ClientConfig{
  		BrokerURL:          *brokerURL,
  		AmpCacheURL:        *ampCacheURL,
-@@ -270,7 +246,7 @@ func main() {
+@@ -271,7 +247,7 @@ func main() {
  		switch methodName {
  		case "snowflake":
  			// TODO: Be able to recover when SOCKS dies.
@@ -83,7 +83,7 @@ index 4ebbaf5..749955b 100644
  			if err != nil {
  				pt.CmethodError(methodName, err.Error())
  				break
-@@ -285,7 +261,6 @@ func main() {
+@@ -286,7 +262,6 @@ func main() {
  	}
  	pt.CmethodsDone()
  
@@ -91,7 +91,7 @@ index 4ebbaf5..749955b 100644
  	signal.Notify(sigChan, syscall.SIGTERM)
  
  	if os.Getenv("TOR_PT_EXIT_ON_STDIN_CLOSE") == "1" {
-@@ -312,3 +287,8 @@ func main() {
+@@ -313,3 +288,8 @@ func main() {
  	wg.Wait()
  	log.Println("snowflake is done.")
  }
@@ -101,10 +101,10 @@ index 4ebbaf5..749955b 100644
 +	sigChan <- syscall.SIGTERM
 +}
 diff --git a/proxy/lib/snowflake.go b/proxy/lib/snowflake.go
-index 39c4c2f..af9773f 100644
+index 442e013..3df0c07 100644
 --- a/proxy/lib/snowflake.go
 +++ b/proxy/lib/snowflake.go
-@@ -145,6 +145,8 @@ type SnowflakeProxy struct {
+@@ -165,6 +165,8 @@ type SnowflakeProxy struct {
  
  	periodicProxyStats *periodicProxyStats
  	bytesLogger        bytesLogger
@@ -113,7 +113,7 @@ index 39c4c2f..af9773f 100644
  }
  
  // Checks whether an IP address is a remote address for the client
-@@ -626,6 +628,8 @@ func (sf *SnowflakeProxy) runSession(sid string) {
+@@ -639,6 +641,8 @@ func (sf *SnowflakeProxy) runSession(sid string) {
  	select {
  	case <-dataChan:
  		log.Println("Connection successful")
