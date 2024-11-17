@@ -1,5 +1,5 @@
 diff --git a/cmd/lyrebird/lyrebird.go b/cmd/lyrebird/lyrebird.go
-index 14943a9..7484e2d 100644
+index 3480767..8583b23 100644
 --- a/cmd/lyrebird/lyrebird.go
 +++ b/cmd/lyrebird/lyrebird.go
 @@ -27,10 +27,9 @@
@@ -19,14 +19,14 @@ index 14943a9..7484e2d 100644
  	"os"
  	"path"
 +	"strconv"
+ 	"slices"
  	"syscall"
  
- 	"gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/goptlib"
-@@ -51,18 +51,19 @@ import (
+@@ -53,18 +53,19 @@ import (
  const (
  	lyrebirdLogFile = "lyrebird.log"
  	socksAddr       = "127.0.0.1:0"
-+	LyrebirdVersion = "0.4.0"
++	LyrebirdVersion = "0.5.0"
 +	LyrebirdLogFile = lyrebirdLogFile
  )
  
@@ -43,11 +43,11 @@ index 14943a9..7484e2d 100644
 -	pt.ReportVersion("lyrebird", lyrebirdVersion)
 +	pt.ReportVersion("lyrebird", LyrebirdVersion)
  
- 	ptClientProxy, err := ptGetProxy()
+ 	ptClientProxy, err := ptGetProxy(slices.Contains(ptClientInfo.MethodNames, "snowflake"))
  	if err != nil {
-@@ -85,7 +86,22 @@ func clientSetup() (launched bool, listeners []net.Listener) {
- 			continue
- 		}
+@@ -91,7 +92,22 @@ func clientSetup() (launched bool, listeners []net.Listener) {
+ 			pt.Log(pt.LogSeverityNotice, e.String())
+ 		})
  
 -		ln, err := net.Listen("tcp", socksAddr)
 +		realSocksAddr := socksAddr
@@ -69,7 +69,7 @@ index 14943a9..7484e2d 100644
  		if err != nil {
  			_ = pt.CmethodError(name, err.Error())
  			continue
-@@ -181,7 +197,7 @@ func serverSetup() (launched bool, listeners []net.Listener) {
+@@ -198,7 +214,7 @@ func serverSetup() (launched bool, listeners []net.Listener) {
  	if err != nil {
  		golog.Fatal(err)
  	}
@@ -78,7 +78,7 @@ index 14943a9..7484e2d 100644
  
  	for _, bindaddr := range ptServerInfo.Bindaddrs {
  		name := bindaddr.MethodName
-@@ -293,22 +309,20 @@ func copyLoop(a net.Conn, b net.Conn) error {
+@@ -310,22 +326,20 @@ func copyLoop(a net.Conn, b net.Conn) error {
  	return firstErr(<-errChan, err, a.Close(), b.Close())
  }
  
@@ -111,7 +111,7 @@ index 14943a9..7484e2d 100644
  	if err := log.SetLogLevel(*logLevelStr); err != nil {
  		golog.Fatalf("[ERROR]: %s - failed to set log level: %s", execName, err)
  	}
-@@ -327,16 +341,15 @@ func main() {
+@@ -344,16 +358,15 @@ func main() {
  		golog.Fatalf("[ERROR]: %s - failed to initialize logging", execName)
  	}
  	if err = transports.Init(); err != nil {
@@ -131,7 +131,7 @@ index 14943a9..7484e2d 100644
  	} else {
  		log.Infof("%s - initializing server transport listeners", execName)
  		launched, ptListeners = serverSetup()
-@@ -368,3 +381,11 @@ func main() {
+@@ -385,3 +398,11 @@ func main() {
  	}
  	termMon.wait(true)
  }
@@ -170,7 +170,7 @@ index d416f27..c5e1a05 100644
  import (
  	"errors"
 diff --git a/cmd/lyrebird/pt_extras.go b/cmd/lyrebird/pt_extras.go
-index 6c2cca5..e3c5c90 100644
+index 986d294..ec170c6 100644
 --- a/cmd/lyrebird/pt_extras.go
 +++ b/cmd/lyrebird/pt_extras.go
 @@ -25,7 +25,7 @@
@@ -208,3 +208,23 @@ index 926e630..0c872cb 100644
  
  import (
  	"fmt"
+diff --git a/transports/transports.go b/transports/transports.go
+index 08c09c4..8be7323 100644
+--- a/transports/transports.go
++++ b/transports/transports.go
+@@ -33,7 +33,6 @@ import (
+ 	"fmt"
+ 	"sync"
+ 
+-	"gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/lyrebird/transports/snowflake"
+ 	"gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/lyrebird/transports/webtunnel"
+ 
+ 	"gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/lyrebird/transports/base"
+@@ -93,7 +92,6 @@ func Init() error {
+ 		new(obfs3.Transport),
+ 		new(obfs4.Transport),
+ 		new(scramblesuit.Transport),
+-		new(snowflake.Transport),
+ 		webtunnel.Transport,
+ 	} {
+ 		if err := Register(v); err != nil {
