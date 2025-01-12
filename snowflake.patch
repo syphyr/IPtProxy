@@ -101,7 +101,7 @@ index 648481f..2a50e54 100644
 +	sigChan <- syscall.SIGTERM
 +}
 diff --git a/proxy/lib/snowflake.go b/proxy/lib/snowflake.go
-index e13c3f0..a2ac51d 100644
+index 7bd1aaf..83a2b9d 100644
 --- a/proxy/lib/snowflake.go
 +++ b/proxy/lib/snowflake.go
 @@ -169,6 +169,8 @@ type SnowflakeProxy struct {
@@ -113,10 +113,10 @@ index e13c3f0..a2ac51d 100644
  }
  
  // Checks whether an IP address is a remote address for the client
-@@ -652,6 +654,8 @@ func (sf *SnowflakeProxy) runSession(sid string) {
- 	select {
+@@ -657,6 +659,8 @@ func (sf *SnowflakeProxy) runSession(sid string) {
  	case <-dataChan:
  		log.Println("Connection successful")
+ 		connectedToClient = true
 +		go sf.ClientConnectedCallback()
 +
  	case <-time.After(dataChannelTimeout):
