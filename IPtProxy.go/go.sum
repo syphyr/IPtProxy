@@ -173,8 +173,8 @@ gitlab.com/yawning/edwards25519-extra v0.0.0-20231005122941-2149dcafc266 h1:Ivjs
 gitlab.com/yawning/edwards25519-extra v0.0.0-20231005122941-2149dcafc266/go.mod h1:K/3SQWdJL6udzwInHk1gaYaECYxMp9dDayniPq6gCSo=
 gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/goptlib v1.6.0 h1:KD9m+mRBwtEdqe94Sv72uiedMWeRdIr4sXbrRyzRiIo=
 gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/goptlib v1.6.0/go.mod h1:70bhd4JKW/+1HLfm+TMrgHJsUHG4coelMWwiVEJ2gAg=
-gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/lyrebird v0.0.0-20250319164402-5e3f0aeb5008 h1:8N9GjKCrRZ7Yge/p6jbqC+htlFPMRD7TFaUcDfbCfTI=
-gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/lyrebird v0.0.0-20250319164402-5e3f0aeb5008/go.mod h1:pvLnsCu5IiJBmWBUawWE+rmQzj1ChxFxbNDyed+GIX8=
+gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/lyrebird v0.0.0-20250331172455-2b973ab5d4a6 h1:DNMgnmgjITua/vnssjQ32JboKwVAeZvXkTQSh/1R4Pc=
+gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/lyrebird v0.0.0-20250331172455-2b973ab5d4a6/go.mod h1:pvLnsCu5IiJBmWBUawWE+rmQzj1ChxFxbNDyed+GIX8=
 gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/ptutil v0.0.0-20250130151315-efaf4e0ec0d3 h1:pwWCiqrB6b3SynILsv3M+76utmcgMiTZ2aqfccjWmxo=
 gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/ptutil v0.0.0-20250130151315-efaf4e0ec0d3/go.mod h1:PK7EvweKeypdelDyh1m7N922aldSeCAG8n0lJ7RAXWQ=
 gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/snowflake/v2 v2.11.0 h1:k91gpxp168GBMpbAZL07oMxoG9WZqRKXK4JM10ysUys=
