@@ -6,7 +6,7 @@ toolchain go1.24.6
 
 require (
 	gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/goptlib v1.6.0
-	gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/lyrebird v0.0.0-20250806144742-2e4640a39680
+	gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/lyrebird v0.0.0-20250828123407-953a2ab931dc
 	gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/snowflake/v2 v2.11.0
 	golang.org/x/net v0.43.0
 )
