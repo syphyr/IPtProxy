@@ -8,7 +8,7 @@ require (
 	gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/goptlib v1.6.0
 	gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/lyrebird v0.0.0-20250828123407-953a2ab931dc
 	gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/snowflake/v2 v2.11.0
-	golang.org/x/net v0.43.0
+	golang.org/x/net v0.44.0
 )
 
 require (
@@ -72,12 +72,12 @@ require (
 	gitlab.com/yawning/edwards25519-extra v0.0.0-20231005122941-2149dcafc266 // indirect
 	gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/ptutil v0.0.0-20250130151315-efaf4e0ec0d3 // indirect
 	gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/webtunnel v0.0.3-0.20250724131018-aab00213ba56 // indirect
-	golang.org/x/crypto v0.41.0 // indirect
-	golang.org/x/mobile v0.0.0-20250813145510-f12310a0cfd9 // indirect
-	golang.org/x/mod v0.27.0 // indirect
-	golang.org/x/sync v0.16.0 // indirect
-	golang.org/x/sys v0.35.0 // indirect
-	golang.org/x/text v0.28.0 // indirect
-	golang.org/x/tools v0.36.0 // indirect
+	golang.org/x/crypto v0.42.0 // indirect
+	golang.org/x/mobile v0.0.0-20250911085028-6912353760cf // indirect
+	golang.org/x/mod v0.28.0 // indirect
+	golang.org/x/sync v0.17.0 // indirect
+	golang.org/x/sys v0.36.0 // indirect
+	golang.org/x/text v0.29.0 // indirect
+	golang.org/x/tools v0.37.0 // indirect
 	google.golang.org/protobuf v1.36.7 // indirect
 )
